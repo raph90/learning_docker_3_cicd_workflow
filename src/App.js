@@ -5,7 +5,7 @@ import "./App.css";
 function App() {
   return (
     <div className="App">
-      <h2>HELLO THERE GENERAL KENOBI</h2>
+      <h2> GENERAL KENOBI</h2>
       <header className="App-header">
         <p>
           Edit <code>src/App.js</code> and save to reload.
