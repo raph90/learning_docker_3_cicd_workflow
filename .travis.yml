@@ -10,7 +10,9 @@ script:
   - docker run -e CI=true raph37/3_cicd_workflow npm run test -- --coverage
 
 after_success:
-  - docker build -t raph37/3_cicd_workflow .;
-  - docker tag raph37/3_cicd_workflow raph37/3_cicd_workflow:$(git rev-parse --short HEAD);
-  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-  - docker push raph37/3_cicd_workflow;
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+    docker build -t raph37/3_cicd_workflow .;
+    docker tag raph37/3_cicd_workflow raph37/3_cicd_workflow:$(git rev-parse --short HEAD);
+    docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+    docker push raph37/3_cicd_workflow;
+    fi
