@@ -7,4 +7,4 @@ before_install:
   - docker build -t raph37/3_cicd_workflow -f Dockerfile.dev .
 
 script:
-  - docker run raph37/3_cicd_workflow npm run test -- --coverage
+  - docker run -e CI=true raph37/3_cicd_workflow npm run test -- --coverage
