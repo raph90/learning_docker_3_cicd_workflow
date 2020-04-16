@@ -8,3 +8,15 @@ before_install:
 
 script:
   - docker run -e CI=true raph37/3_cicd_workflow npm run test -- --coverage
+
+install:
+  - docker build -t raph37/3_cicd_workflow .
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  keep_history: true
+  local_dir: /build
+  on:
+    branch: master
