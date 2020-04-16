@@ -1,20 +1,19 @@
 services:
     - docker
-  
-  jobs:
+
+jobs:
     include:
-      - stage: test
-        before_install: docker build -t raph37/3_cicd_workflow -f Dockerfile.dev .
-        script: docker run -e CI=true raph37/3_cicd_workflow npm run test -- --coverage
-      - stage: deploy
-        script:
-          - docker build -t raph37/3_cicd_workflow .;
-          - docker tag raph37/3_cicd_workflow raph37/3_cicd_workflow:$(git rev-parse --short HEAD);
-          - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-          - docker push raph37/3_cicd_workflow;
-  
-  stages:
+        - stage: test
+          before_install: docker build -t raph37/3_cicd_workflow -f Dockerfile.dev .
+          script: docker run -e CI=true raph37/3_cicd_workflow npm run test -- --coverage
+        - stage: deploy
+          script:
+              - docker build -t raph37/3_cicd_workflow .;
+              - docker tag raph37/3_cicd_workflow raph37/3_cicd_workflow:$(git rev-parse --short HEAD);
+              - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+              - docker push raph37/3_cicd_workflow;
+
+stages:
     - test
     - name: deploy
       if: branch = master
-  
